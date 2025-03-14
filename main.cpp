@@ -54,6 +54,10 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     n = std::stoi(argv[1]);
+    if (n < 2) {
+        std::cerr << "There must be at least 2 philosophers.\n";
+        return 1;
+    }
     initialize_forks(n);
     auto* threads = new pthread_t[n];
     for (int i = 0; i < n; i++) {
