@@ -1,0 +1,11 @@
+andrzej joined room: t1
+andrzej: czesc
+d9one: halo
+andrzej: super
+d9one: test historii przeprowadzimy
+d9one left room
+d9one joined room: t1
+d9one: enter
+d9one: tak jest
+d9one: super
+d9one left room
