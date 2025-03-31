@@ -22,3 +22,22 @@ d9one: quit
 d9one: heheh
 d9one: ge
 d9one: ghe
+andrzej joined room: test
+andrzej left room
+andrzej joined room: test
+andrzej: dlaczego tak jest
+andrzej: dlaczego
+d9one left room
+d9one joined room: test
+d9one: ok
+d9one: i guess?
+andrzej left room
+andrzej joined room: test
+andrzej left room
+andrzej joined room: test
+d9one: teraz pojdzie
+d9one left room
+d9one joined room: test
+d9one: essa
+d9one: elo
+d9one left room

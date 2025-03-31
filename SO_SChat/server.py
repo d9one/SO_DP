@@ -97,7 +97,7 @@ def broadcast(room, message, sender_client=None):  # broadcast message to all cl
         for client in rooms.get(room, []):
             if client != sender_client:
                 client.send(message.encode('ascii'))
-                save_message(room, message)
+    save_message(room, message)
 
 
 def messages_handler():  # handle messages from the que
@@ -117,11 +117,12 @@ def save_message(room, message):  # save message to the chat history
 
 
 def load_chat_history(room):  # load chat history from the file
-    try:
-        with open(f'./ChatArchives/{room}.txt', 'r', encoding="utf-8") as f:
-            return f.readlines()
-    except FileNotFoundError:
-        return ''
+    with threading.Lock():
+        try:
+            with open(f'./ChatArchives/{room}.txt', 'r', encoding="utf-8") as f:
+                return f.readlines()
+        except FileNotFoundError:
+            return ''
 
 
 def handle_client(client):  # handle client connection
