@@ -45,3 +45,69 @@ Przykład dla 5 filozofów:
 - **System operacyjny Linux**
 - **Kompliator g++**
 
+# TCP Chat
+
+## Opis problemu
+
+TCP Chat to projekt implementujący serwer i klienta do komunikacji w czasie rzeczywistym przy użyciu protokołu TCP. W systemie klienci mogą dołączać do pokoi czatowych, wysyłać i odbierać wiadomości oraz przeglądać historię czatu. Problem synchronizacji dotyczy obsługi wielu klientów jednocześnie i zapewnienia bezpiecznej komunikacji między nimi.
+
+## Opis rozwiązania
+
+Projekt wykorzystuje wielowątkowość do zarządzania połączeniami klientów oraz kolejkę do obsługi wiadomości. Główne mechanizmy to:
+
+- **Serwer TCP** – Obsługuje połączenia klientów i zarządza czatami.
+
+- **Wielowątkowość** – Każdy klient ma dedykowany wątek do odbierania i wysyłania wiadomości.
+
+- **Kolejka FIFO** – Buforuje wiadomości przed ich rozesłaniem do klientów.
+
+- **Zapis historii czatu** – Każdy pokój czatowy ma swoją historię, zapisywaną w plikach tekstowych.
+
+- **Synchronizacja** – Blokady (mutexy) zapobiegają równoczesnemu dostępowi do współdzielonych zasobów.
+
+
+## Sposób użycia
+
+### Uruchomienie
+
+Aby uruchomić serwer:
+
+```sh
+python server.py
+```
+*Po uruchomieniu programu w interfejscie użytkownika wybrać ip oraz port następnie kliknąć "Start server".*
+
+Aby uruchomić clienta:
+
+```sh
+python client.py
+```
+
+*Po uruchomieniu programu w interfejscie użytkownika wybrać ip oraz port następnie kliknąć "Connect", nastepnie wypisać nick oraz pokój do którego chcemy dołaczyć oraz kliknąć przycisk "Join.*
+
+### Korzystanie 
+
+*Aby wysłać wiadomośc należy wpisać ją w odpowiednimu miejscu oraz klkinąć przycisk "Send" albo kliknąć Enter.*
+
+*Aby opuścić pokój rozmów należy nacisnąć przycisk "Quit".*
+
+## Mechanizmy unikania problemów synchronizacji
+
+- **Mutex na broadcast()** – Zapewnia, że wiadomości są wysyłane do klientów w sposób uporządkowany, zapobiegając sytuacji, w której wiele wątków jednocześnie próbuje wysłać wiadomości, co mogłoby prowadzić do niekontrolowanego przeplatania danych.
+
+- **Mutex na save_message()** – Zapobiega równoczesnemu zapisywaniu do plików przez wiele wątków, co mogłoby prowadzić do uszkodzenia plików lub utraty wiadomości.
+
+- **Wątki dla klientów** – Każdy klient ma osobny wątek, co zapobiega blokowaniu serwera.
+
+- **Kolejka wiadomości** – FIFO queue zapobiega utracie wiadomości i pozwala na ich przetwarzanie w kolejności przybycia.
+
+- **Obsługa rozłączania klientów** – Gdy klient opuszcza czat, jego gniazdo jest zamykane, a informacja o nim jest usuwana.
+
+- **Mechanizm synchronizacji zakończenia wątków** – shutdown_event = threading.Event() sygnalizuje wątkom, że powinny zakończyć działanie. Dzięki temu można bezpiecznie zamknąć serwer/klienta i wszystkie wątki, zapobiegając błędom wynikającym z nagłego przerwania pracy serwera/klienta.
+
+## Wymagania
+-**Python 3**
+
+-**Tkinter** – do obsługi GUI
+
+-**System operacyjny:** Linux/Windows/MacOs
