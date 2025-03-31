@@ -73,14 +73,14 @@ Projekt wykorzystuje wielowątkowość do zarządzania połączeniami klientów 
 Aby uruchomić serwer:
 
 ```sh
-python server.py
+python3 server.py
 ```
 *Po uruchomieniu programu w interfejscie użytkownika wybrać ip oraz port następnie kliknąć "Start server".*
 
 Aby uruchomić clienta:
 
 ```sh
-python client.py
+python3 client.py
 ```
 
 *Po uruchomieniu programu w interfejscie użytkownika wybrać ip oraz port następnie kliknąć "Connect", nastepnie wypisać nick oraz pokój do którego chcemy dołaczyć oraz kliknąć przycisk "Join.*
