@@ -97,7 +97,7 @@ def broadcast(room, message, sender_client=None):  # broadcast message to all cl
         for client in rooms.get(room, []):
             if client != sender_client:
                 client.send(message.encode('ascii'))
-                save_message(room, message)
+            save_message(room, message)
 
 
 def messages_handler():  # handle messages from the que
